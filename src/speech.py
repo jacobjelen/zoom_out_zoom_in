@@ -12,6 +12,7 @@ track = 0
 # === Speech Function =============================
 
 def speech(gen):
+	import requests
 
 	en = SpeechClient(MS_key1 , gender=gen, locale='en-GB')	# speech client for input - english
 	jp = SpeechClient(MS_key1 , gender=gen, locale='ja-JP')	# speech client for output - japanese
@@ -19,6 +20,8 @@ def speech(gen):
 	order = en.input("Say something in English...") # transcribes what you say into text and stores it in order variable
 	print(order)
 	jp.print(order)	# reads back the text with japanese accent
+
+	requests.get('localhost:5000')
 
 	global track	# enables editing the 'track' variable inside this function
 	jp.say_to_wav(order, filename="rec/" + str(track) + "-" + gen + ".wav")		# saves recording of the repetition and numbers it
